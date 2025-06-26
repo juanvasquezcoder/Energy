@@ -1,0 +1,43 @@
+<!-- templates/cartera/consulta.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <p>Fecha y Hora: <span id="datetime"></span></p>
+
+        <!-- El atributo data-url pasará la URL de la API a nuestro JavaScript -->
+        <form id="buscar-form" data-url="{% url 'cartera:buscar_api' %}">
+            {% csrf_token %} <!-- Token de seguridad de Django -->
+            <div class="form-group">
+                <label for="usuario">Nombre de usuario:</label>
+                <input type="text" id="usuario" name="usuario">
+            </div>
+            <div class="form-group">
+                <label for="cliente_id">Cédula de cliente:</label>
+                <input type="text" id="cliente_id" name="cliente_id" required>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="buscar-btn">Buscar</button>
+                <button type="button" onclick="nuevaBusqueda()">Nueva Búsqueda</button>
+            </div>
+        </form>
+
+        <div class="results-area">
+            <label>Resultados:</label>
+            <div id="resultados-container">
+                <!-- Los resultados se insertarán aquí con JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
